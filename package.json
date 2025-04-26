@@ -1,0 +1,16 @@
+{
+  "name": "kaj-cms",
+  "version": "1.0.0",
+  "description": "A micro CMS used exclusively for a review blog about Kajkager. Cool, I know!",
+  "license": "ISC",
+  "author": "Jannick Voss Haunstrup",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
