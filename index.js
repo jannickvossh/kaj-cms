@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/opret-indlaeg", (req, res) => {
-    res.render("templates/create-post.ejs", {});
+    res.render("create-post.ejs", {});
 });
 
 app.get("/blog/:pageSlug", (req, res) => {
