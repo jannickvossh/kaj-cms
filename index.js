@@ -18,11 +18,14 @@ import {
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
 const siteName = "Jagten på den Perfekte Kajkage";
 const localDatabase = `${__dirname}/database.json`;
+
+const databaseUri = process.env.CONNECTION_STRING;
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 
 // const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
