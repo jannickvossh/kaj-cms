@@ -24,6 +24,10 @@ let testPosts = [
     "post-4", "post-5", "post-6"
 ];
 
+app.post("/create-post", (req, res) => {
+    console.log(req.body);
+});
+
 app.get("/", (req, res) => {
     res.render("home.ejs", {
         pageTitle: `${siteName}`,
@@ -31,9 +35,13 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/opret-indlaeg", (req, res) => {
+    res.render("templates/create-post.ejs", {});
+});
+
 app.get("/blog/:pageSlug", (req, res) => {
     if (testPosts.includes(req.params.pageSlug)) {
-        res.render("./templates/post.ejs", {
+        res.render("templates/post.ejs", {
             pageSlug: req.params.pageSlug,
             dateTime: getCurrentDateTime()
         });

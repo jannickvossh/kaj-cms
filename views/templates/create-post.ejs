@@ -1,0 +1,31 @@
+<%- include("../partials/header.ejs") %>
+
+<form class="form" action="/create-post" method="POST">
+    <legend class="form__legend">Nyt indlæg</legend>
+
+    <div class="form__field-group">
+        <label class="form__label" for="post-title">Titel</label>
+        <input class="form__input" type="text" name="post-title">
+    </div>
+
+    <fieldset>
+        <div class="form__field-group">
+            <label class="form__label" for="post-baker">Bageri/Konditori</label>
+            <input class="form__input" type="text" name="post-baker">
+        </div>
+
+        <div class="form__field-group">
+            <label class="form__label" for="post-city">By</label>
+            <input class="form__input" type="text" name="post-city">
+        </div>
+    </fieldset>
+
+    <div class="form__field-group">
+        <label class="form__label" for="post-content"></label>
+        <textarea name="post-content" id="post-content"></textarea>
+    </div>
+
+    <button class="form__submit" type="submit">Opret indlæg</button>
+</form>
+
+<%- include("../partials/footer.ejs") %>
