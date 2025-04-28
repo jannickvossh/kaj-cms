@@ -6,6 +6,8 @@
     <% } %>
 </h1>
 
-<p><strong>Dags dato og tidspunkt:</strong> <%= dateTime %></p>
+<% if (locals.postContent) { %>
+    <%- postContent %>
+<% } %>
 
 <%- include("../partials/footer.ejs") %>

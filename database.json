@@ -1,0 +1,18 @@
+{
+    "posts": [
+        {
+            "postid": 1,
+            "postdate": "28. april 2025 19.39",
+            "dateeaten": "26. september 2024",
+            "posttitle": "Eksempelindlæg",
+            "postslug": "eksempelindlaeg",
+            "postimage": "kajkage_nytorv-konditori.webp",
+            "bakery": "Nytorv Konditori",
+            "city": "Skælskør",
+            "zipcode": "4230",
+            "tier": "S",
+            "postexcerpt": "Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+            "postcontent": "<p><em>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis. Maecenas faucibus mollis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit.</em></p>\n<h2>Ultricies mollis adipiscing justo</h2>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.</p>\n<p>Maecenas sed diam eget risus varius <strong>blandit sit amet</strong> non magna.</p>\n<h2>Praesent commodo cursus magna, vel scelerisque nisl consectetur</h2>\n<p>Maecenas sed diam eget <a href=\"#\">risus varius</a> blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>"
+        }
+    ]
+}

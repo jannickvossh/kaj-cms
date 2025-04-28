@@ -19,10 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const siteName = "Jagten på den Perfekte Kajkage"
-let testPosts = [
-    "post-1", "post-2", "post-3",
-    "post-4", "post-5", "post-6"
-];
+const database = `${__dirname}/database.json`;
+import * as fs from 'fs';
 
 app.post("/create-post", (req, res) => {
     console.log(req.body);
@@ -40,14 +38,26 @@ app.get("/opret-indlaeg", (req, res) => {
 });
 
 app.get("/blog/:pageSlug", (req, res) => {
-    if (testPosts.includes(req.params.pageSlug)) {
-        res.render("templates/post.ejs", {
-            pageSlug: req.params.pageSlug,
-            dateTime: getCurrentDateTime()
+    fs.readFile(database, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+        let parsedDatabase = JSON.parse(data);
+
+        parsedDatabase.posts.forEach((post) => {
+            if (req.params.pageSlug === post.postslug) {
+                res.render("templates/post.ejs", {
+                    pageSlug: post.postslug,
+                    dateTime: getCurrentDateTime(),
+                    postTitle: post.posttitle,
+                    postContent: post.postcontent
+                });
+            } else {
+                res.render("page-404.ejs", {});
+            }
         });
-    } else {
-        res.render("page-404.ejs", {});
-    }
+    });
 });
 
 app.listen(port, () => {
