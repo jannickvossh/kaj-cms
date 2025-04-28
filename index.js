@@ -49,8 +49,16 @@ app.get("/blog/:pageSlug", (req, res) => {
             if (req.params.pageSlug === post.postslug) {
                 res.render("templates/post.ejs", {
                     pageSlug: post.postslug,
-                    dateTime: getCurrentDateTime(),
+                    postId: post.postid,
+                    postDate: post.postdate,
+                    dataEaten: post.dateeaten,
                     postTitle: post.posttitle,
+                    postImage: post.postimage,
+                    bakery: post.bakery,
+                    city: post.city,
+                    zipCode: post.zipcode,
+                    tier: post.tier,
+                    postExcerpt: post.postexcerpt,
                     postContent: post.postcontent
                 });
             } else {
