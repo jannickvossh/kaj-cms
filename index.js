@@ -15,15 +15,19 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+const siteName = "Jagten på den Perfekte Kajkage"
+
 app.get("/", (req, res) => {
-    res.render("index.ejs", { 
+    res.render("home.ejs", {
+        pageTitle: `${siteName}`,
         dailyAdvice: dailyAdvice()
     });
 });
 
-app.post("/submit", (req, res) => {
-    console.log(req.body);
-    res.send(`Tak skal du have, ${req.body.firstname} ${req.body.lastname}!`);
+app.get("/blog/:pageSlug", (req, res) => {
+    res.render("./templates/post.ejs", {
+        pageSlug: req.params.pageSlug
+    });
 });
 
 app.listen(port, () => {
