@@ -12,14 +12,14 @@ export function getCurrentDate() {
 }
 
 export function getCurrentTime() {
-    const time = new Date();
+    const date = new Date();
 
     const options = {
         hour: "numeric",
         minute: "numeric"
     }
 
-    const currentTime = new Intl.DateTimeFormat("da", options).format(time);
+    const currentTime = new Intl.DateTimeFormat("da", options).format(date);
     return currentTime;
 }
 
