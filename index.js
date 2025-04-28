@@ -13,10 +13,12 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.sendFile(`${__dirname}/public/index.html`);
-    console.log(dailyAdvice());
+    res.render("index.ejs", { 
+        dailyAdvice: dailyAdvice()
+    });
 });
 
 app.post("/submit", (req, res) => {
