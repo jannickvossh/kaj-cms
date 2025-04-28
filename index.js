@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const siteName = "Jagten på den Perfekte Kajkage"
+let testPosts = [
+    "post-1", "post-2", "post-3",
+    "post-4", "post-5", "post-6"
+];
 
 app.get("/", (req, res) => {
     res.render("home.ejs", {
@@ -28,10 +32,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blog/:pageSlug", (req, res) => {
-    res.render("./templates/post.ejs", {
-        pageSlug: req.params.pageSlug,
-        dateTime: getCurrentDateTime()
-    });
+    if (testPosts.includes(req.params.pageSlug)) {
+        res.render("./templates/post.ejs", {
+            pageSlug: req.params.pageSlug,
+            dateTime: getCurrentDateTime()
+        });
+    } else {
+        res.render("page-404.ejs", {});
+    }
 });
 
 app.listen(port, () => {
