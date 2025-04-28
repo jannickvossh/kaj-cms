@@ -8,6 +8,8 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+import * as fs from 'fs';
+
 import {
     getCurrentDate,
     getCurrentTime,
@@ -26,25 +28,6 @@ const clientOptions = { serverApi: { version: '1', strict: true, deprecationErro
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
-
-// const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-// async function run() {
-//   try {
-//     // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
-//     await mongoose.connect(databaseUri, clientOptions);
-//     await mongoose.connection.db.admin().command({ ping: 1 });
-//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await mongoose.disconnect();
-//   }
-// }
-// run().catch(console.dir);
-
-
-
-import * as fs from 'fs';
 
 app.post("/create-post", (req, res) => {
     console.log(req.body);
