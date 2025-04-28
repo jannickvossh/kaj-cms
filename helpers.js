@@ -1,8 +1,40 @@
+export function getCurrentDate() {
+    const date = new Date();
+
+    const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }
+
+    const currentDate = new Intl.DateTimeFormat("da", options).format(date);
+    return currentDate;
+}
+
+export function getCurrentTime() {
+    const time = new Date();
+
+    const options = {
+        hour: "numeric",
+        minute: "numeric"
+    }
+
+    const currentTime = new Intl.DateTimeFormat("da", options).format(time);
+    return currentTime;
+}
+
+export function getCurrentDateTime() {
+    const currentDate = getCurrentDate();
+    const currentTime = getCurrentTime();
+
+    return `${currentDate} ${currentTime}`;
+}
+
 export function dailyAdvice() {
     let advice;
     const day = new Date();
     const options = { weekday: "long" };
-    let dayOfWeek = new Intl.DateTimeFormat("da", options).format(day);
+    const dayOfWeek = new Intl.DateTimeFormat("da", options).format(day);
 
     switch (dayOfWeek) {
         case "mandag":

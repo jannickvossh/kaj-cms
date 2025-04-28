@@ -6,6 +6,9 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import {
+    getCurrentDate,
+    getCurrentTime,
+    getCurrentDateTime,
     dailyAdvice
 } from "./helpers.js";
 
@@ -26,7 +29,8 @@ app.get("/", (req, res) => {
 
 app.get("/blog/:pageSlug", (req, res) => {
     res.render("./templates/post.ejs", {
-        pageSlug: req.params.pageSlug
+        pageSlug: req.params.pageSlug,
+        dateTime: getCurrentDateTime()
     });
 });
 
