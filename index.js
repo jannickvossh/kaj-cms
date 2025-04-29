@@ -6,6 +6,8 @@ import { minify } from 'htmlfy';
 dotenv.config();
 import mongoose from 'mongoose';
 
+import BlogPost from './models/blogpost.model.js';
+
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -31,43 +33,29 @@ const clientOptions = { serverApi: { version: '1', strict: true, deprecationErro
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(express.json());
 
-// Schema
-const Schema = mongoose.Schema;
+app.post("/create-post", async (req, res) => {
+    try {
+        let parsedPostContent = marked.parse(req.body.postcontent);
+        parsedPostContent = minify(parsedPostContent);
+        console.log(parsedPostContent);
 
-const BlogPost = new Schema({
-    pageslug: String,
-    postdate: String,
-    dateeaten: String,
-    posttitle: String,
-    postimage: String,
-    bakery: String,
-    city: String,
-    zipcode: String,
-    tier: String,
-    postexcerpt: String,
-    postcontent: String
-});
-
-const Post = mongoose.model('BlogPost', BlogPost);
-
-app.post("/create-post", (req, res) => {
-    let parsedPostContent = marked.parse(req.body.postcontent);
-    parsedPostContent = minify(parsedPostContent);
-    console.log(parsedPostContent);
-
-    // const newPost = new Post({
-    //     pageslug: slugify(req.body.posttitle),
-    //     postdate: getCurrentDateTime(),
-    //     posttitle: req.body.posttitle,
-    //     postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
-    //     bakery: req.body.bakery,
-    //     city: req.body.city,
-    //     zipcode: req.body.zipcode,
-    //     tier: req.body.tier,
-    //     postexcerpt: req.body.postexcerpt,
-    //     postcontent: parsedPostContent
-    // });
+        await BlogPost.create({
+            pageslug: slugify(req.body.posttitle),
+            postdate: getCurrentDateTime(),
+            posttitle: req.body.posttitle,
+            postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
+            bakery: req.body.bakery,
+            city: req.body.city,
+            zipcode: req.body.zipcode,
+            tier: req.body.tier,
+            postexcerpt: req.body.postexcerpt,
+            postcontent: parsedPostContent
+        });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 app.get("/", (req, res) => {
