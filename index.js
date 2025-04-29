@@ -1,9 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+dotenv.config();
 import { marked } from 'marked';
 import { minify } from 'htmlfy';
-dotenv.config();
+import { NodeHtmlMarkdown } from 'node-html-markdown';
 import mongoose from 'mongoose';
 
 import BlogPost from './models/blogpost.model.js';
