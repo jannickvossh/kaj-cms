@@ -80,35 +80,55 @@ app.get("/opret-indlaeg", (req, res) => {
     res.render("create-post.ejs", {});
 });
 
-app.get("/blog/:pageSlug", (req, res) => {
-    fs.readFile(localDatabase, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading file:', err);
-            return;
-        }
-        let parsedDatabase = JSON.parse(data);
+app.get("/blog/:pageslug", async (req, res) => {
+    const post = await BlogPost.find({ pageslug: req.params.pageslug });
 
-        parsedDatabase.posts.forEach((post) => {
-            if (req.params.pageSlug === post.postslug) {
-                res.render("templates/post.ejs", {
-                    pageSlug: post.postslug,
-                    postId: post.postid,
-                    postDate: post.postdate,
-                    dataEaten: post.dateeaten,
-                    postTitle: post.posttitle,
-                    postImage: post.postimage,
-                    bakery: post.bakery,
-                    city: post.city,
-                    zipCode: post.zipcode,
-                    tier: post.tier,
-                    postExcerpt: post.postexcerpt,
-                    postContent: post.postcontent
-                });
-            } else {
-                res.render("page-404.ejs", {});
-            }
+    if (post.length > 0) {
+        console.log(post[0].pageslug);
+        res.render("templates/post.ejs", {
+            pageslug: post[0].pageslug,
+            postdate: post[0].postdate,
+            posttitle: post[0].posttitle,
+            postimage: post[0].postimage,
+            bakery: post[0].bakery,
+            city: post[0].city,
+            zipcode: post[0].zipcode,
+            tier: post[0].tier,
+            postexcerpt: post[0].postexcerpt,
+            postcontent: post[0].postcontent
         });
-    });
+    } else {
+        res.render("page-404.ejs", {});
+    }
+
+    // fs.readFile(localDatabase, 'utf8', (err, data) => {
+    //     if (err) {
+    //         console.error('Error reading file:', err);
+    //         return;
+    //     }
+    //     let parsedDatabase = JSON.parse(data);
+
+    //     parsedDatabase.posts.forEach((post) => {
+    //         if (req.params.pageslug === post.postslug) {
+    //             res.render("templates/post.ejs", {
+    //                 pageSlug: post.postslug,
+    //                 postId: post.postid,
+    //                 postDate: post.postdate,
+    //                 dataEaten: post.dateeaten,
+    //                 postTitle: post.posttitle,
+    //                 postImage: post.postimage,
+    //                 bakery: post.bakery,
+    //                 city: post.city,
+    //                 zipCode: post.zipcode,
+    //                 tier: post.tier,
+    //                 postExcerpt: post.postexcerpt,
+    //                 postContent: post.postcontent
+    //             });
+    //         } else {
+    //             res.render("page-404.ejs", {});
+    //         }
+    //     });
+    // });
 });
 
 mongoose.connect(databaseUri, clientOptions)
