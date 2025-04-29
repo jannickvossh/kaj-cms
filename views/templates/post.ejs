@@ -1,10 +1,11 @@
 <%- include("../partials/header.ejs") %>
 
-<h1>
-    <% if (locals.posttitle) { %>
-        <%= posttitle %>
-    <% } %>
-</h1>
+<div class="post-meta">
+    <p class="post-meta__date"><%= postdate %></p>
+    <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
+</div>
+
+<h1><%= posttitle %></h1>
 
 <% if (locals.postcontent) { %>
     <%- postcontent %>
