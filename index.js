@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import marked from 'marked';
 dotenv.config();
 import mongoose from 'mongoose';
 
@@ -48,6 +49,8 @@ const Post = new Schema({
     postExcerpt: String,
     postContent: String
 });
+
+mongoose.model('Post', Post);
 
 app.post("/create-post", (req, res) => {
     console.log(req.body);
