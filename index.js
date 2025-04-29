@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import marked from 'marked';
+import { marked } from 'marked';
 dotenv.config();
 import mongoose from 'mongoose';
 
@@ -53,7 +53,10 @@ const Post = new Schema({
 mongoose.model('Post', Post);
 
 app.post("/create-post", (req, res) => {
-    console.log(req.body);
+    if (req.body.postcontent) {
+        let parsedPostContent = marked.parse(req.body.postcontent);
+        console.log(parsedPostContent);
+    }
 });
 
 app.get("/", (req, res) => {
