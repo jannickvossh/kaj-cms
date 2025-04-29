@@ -42,18 +42,28 @@ app.post("/create-post", async (req, res) => {
         parsedPostContent = minify(parsedPostContent);
         console.log(parsedPostContent);
 
-        await BlogPost.create({
-            pageslug: slugify(req.body.posttitle),
-            postdate: getCurrentDateTime(),
-            posttitle: req.body.posttitle,
-            postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
-            bakery: req.body.bakery,
-            city: req.body.city,
-            zipcode: req.body.zipcode,
-            tier: req.body.tier,
-            postexcerpt: req.body.postexcerpt,
-            postcontent: parsedPostContent
+        BlogPost.findOne({ posttitle: req.body.posttitle })
+        .then(titleExists => {
+            if (titleExists) {
+                console.log("Beklager. Et andet indlæg med denne titel findes allerede.");
+                return;
+            }
+
+            let slugifiedPostTitle = slugify(req.body.posttitle);
+            BlogPost.create({
+                pageslug: slugifiedPostTitle,
+                postdate: getCurrentDateTime(),
+                posttitle: req.body.posttitle,
+                postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
+                bakery: req.body.bakery,
+                city: req.body.city,
+                zipcode: req.body.zipcode,
+                tier: req.body.tier,
+                postexcerpt: req.body.postexcerpt,
+                postcontent: parsedPostContent
+            });
         });
+
     } catch (err) {
         console.log(err);
     }
