@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { marked } from 'marked';
+import { minify } from 'htmlfy';
 dotenv.config();
 import mongoose from 'mongoose';
 
@@ -55,6 +56,7 @@ mongoose.model('Post', Post);
 app.post("/create-post", (req, res) => {
     if (req.body.postcontent) {
         let parsedPostContent = marked.parse(req.body.postcontent);
+        parsedPostContent = minify(parsedPostContent);
         console.log(parsedPostContent);
     }
 });
