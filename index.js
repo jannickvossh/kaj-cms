@@ -13,8 +13,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-import * as fs from 'fs';
-
 import {
     getCurrentDate,
     getCurrentTime,
@@ -27,7 +25,6 @@ const app = express();
 const port = 3000;
 
 const siteName = "Jagten på den Perfekte Kajkage";
-const localDatabase = `${__dirname}/database.json`;
 
 const databaseUri = process.env.CONNECTION_STRING;
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
@@ -98,35 +95,6 @@ app.get("/blog/:pageslug", async (req, res) => {
     } else {
         res.render("page-404.ejs", {});
     }
-
-    // fs.readFile(localDatabase, 'utf8', (err, data) => {
-    //     if (err) {
-    //         console.error('Error reading file:', err);
-    //         return;
-    //     }
-    //     let parsedDatabase = JSON.parse(data);
-
-    //     parsedDatabase.posts.forEach((post) => {
-    //         if (req.params.pageslug === post.postslug) {
-    //             res.render("templates/post.ejs", {
-    //                 pageSlug: post.postslug,
-    //                 postId: post.postid,
-    //                 postDate: post.postdate,
-    //                 dataEaten: post.dateeaten,
-    //                 postTitle: post.posttitle,
-    //                 postImage: post.postimage,
-    //                 bakery: post.bakery,
-    //                 city: post.city,
-    //                 zipCode: post.zipcode,
-    //                 tier: post.tier,
-    //                 postExcerpt: post.postexcerpt,
-    //                 postContent: post.postcontent
-    //             });
-    //         } else {
-    //             res.render("page-404.ejs", {});
-    //         }
-    //     });
-    // });
 });
 
 mongoose.connect(databaseUri, clientOptions)
