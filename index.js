@@ -29,6 +29,26 @@ const clientOptions = { serverApi: { version: '1', strict: true, deprecationErro
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Schema
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
+
+const Post = new Schema({
+    objectid: ObjectId,
+    postId: Number,
+    pageSlug: String,
+    postDate: String,
+    dataEaten: String,
+    postTitle: String,
+    postImage: String,
+    bakery: String,
+    city: String,
+    zipCode: String,
+    tier: String,
+    postExcerpt: String,
+    postContent: String
+});
+
 app.post("/create-post", (req, res) => {
     console.log(req.body);
 });
