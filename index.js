@@ -16,7 +16,8 @@ import {
     getCurrentDate,
     getCurrentTime,
     getCurrentDateTime,
-    dailyAdvice
+    dailyAdvice,
+    slugify
 } from './helpers.js';
 
 const app = express();
@@ -33,32 +34,40 @@ app.use(express.static("public"));
 
 // Schema
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
 
-const Post = new Schema({
-    objectid: ObjectId,
-    postId: Number,
-    pageSlug: String,
-    postDate: String,
-    dataEaten: String,
-    postTitle: String,
-    postImage: String,
+const BlogPost = new Schema({
+    pageslug: String,
+    postdate: String,
+    dateeaten: String,
+    posttitle: String,
+    postimage: String,
     bakery: String,
     city: String,
-    zipCode: String,
+    zipcode: String,
     tier: String,
-    postExcerpt: String,
-    postContent: String
+    postexcerpt: String,
+    postcontent: String
 });
 
-mongoose.model('Post', Post);
+const Post = mongoose.model('BlogPost', BlogPost);
 
 app.post("/create-post", (req, res) => {
-    if (req.body.postcontent) {
-        let parsedPostContent = marked.parse(req.body.postcontent);
-        parsedPostContent = minify(parsedPostContent);
-        console.log(parsedPostContent);
-    }
+    let parsedPostContent = marked.parse(req.body.postcontent);
+    parsedPostContent = minify(parsedPostContent);
+    console.log(parsedPostContent);
+
+    // const newPost = new Post({
+    //     pageslug: slugify(req.body.posttitle),
+    //     postdate: getCurrentDateTime(),
+    //     posttitle: req.body.posttitle,
+    //     postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
+    //     bakery: req.body.bakery,
+    //     city: req.body.city,
+    //     zipcode: req.body.zipcode,
+    //     tier: req.body.tier,
+    //     postexcerpt: req.body.postexcerpt,
+    //     postcontent: parsedPostContent
+    // });
 });
 
 app.get("/", (req, res) => {
@@ -103,6 +112,14 @@ app.get("/blog/:pageSlug", (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}.`);
+mongoose.connect(databaseUri, clientOptions)
+.then(() => {
+    console.log("Connected to database");
+
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}.`);
+    });
+})
+.catch(() => {
+    console.log("Connection to database failed");
 });
