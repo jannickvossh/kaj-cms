@@ -8,6 +8,9 @@ import pkg from 'node-html-markdown';
 const { NodeHtmlMarkdown, NodeHtmlMarkdownOptions } = pkg;
 import mongoose from 'mongoose';
 
+import { bcrypt } from 'bcrypt';
+const saltRounds = 10;
+
 import BlogPost from './models/blogpost.model.js';
 
 import { dirname } from 'path';
