@@ -1,0 +1,51 @@
+<%- include("partials/header.ejs") %>
+
+<form class="form" action="/edit-post" method="POST">
+    <legend class="form__legend">Redigér indlæg</legend>
+
+    <div class="form__field-group">
+        <label class="form__label" for="posttitle">Titel *</label>
+        <input class="form__input" type="text" name="posttitle" value="<%= posttitle %>" required>
+    </div>
+
+    <div class="form__field-group">
+        <label class="form__label" for="postimage">Billede *</label>
+        <input class="form__input" type="text" name="postimage" value="<%= postimage %>" required>
+    </div>
+
+    <fieldset>
+        <div class="form__field-group">
+            <label class="form__label" for="bakery">Bageri/Konditori *</label>
+            <input class="form__input" type="text" name="bakery" value="<%= bakery %>" required>
+        </div>
+
+        <div class="form__field-group">
+            <label class="form__label" for="city">By *</label>
+            <input class="form__input" type="text" name="city" value="<%= city %>" required>
+        </div>
+
+        <div class="form__field-group">
+            <label class="form__label" for="zipcode">Postnummer *</label>
+            <input class="form__input" type="text" name="zipcode" value="<%= zipcode %>" required>
+        </div>
+    </fieldset>
+
+    <div class="form__field-group">
+        <label class="form__label" for="tier">Tier *</label>
+        <input class="form__input" type="text" name="tier" value="<%= tier %>" required>
+    </div>
+
+    <div class="form__field-group">
+        <label class="form__label" for="postexcerpt">Uddrag *</label>
+        <textarea name="postexcerpt" id="postexcerpt" required><%= postexcerpt %></textarea>
+    </div>
+
+    <div class="form__field-group">
+        <label class="form__label" for="postcontent">Indhold - skrives i markdown *</label>
+        <textarea name="postcontent" id="postcontent" value="<%= postcontent %>" required><%= postcontent %></textarea>
+    </div>
+
+    <button class="form__submit" type="submit">Gem</button>
+</form>
+
+<%- include("partials/footer.ejs") %>

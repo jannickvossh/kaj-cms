@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { marked } from 'marked';
 import { minify } from 'htmlfy';
-import { NodeHtmlMarkdown } from 'node-html-markdown';
+import pkg from 'node-html-markdown';
+const { NodeHtmlMarkdown, NodeHtmlMarkdownOptions } = pkg;
 import mongoose from 'mongoose';
 
 import BlogPost from './models/blogpost.model.js';
@@ -64,6 +65,19 @@ app.post("/create-post", async (req, res) => {
     }
 });
 
+app.post("/edit-post", async (req, res) => {
+    try {
+        const post = await BlogPost.find({ pageslug: req.body.editslug });
+
+        if (!post.length > 0) {
+            console.log("No post found with that name");
+            return
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 app.get("/", (req, res) => {
     res.render("home.ejs", {
         pageTitle: `${siteName}`,
@@ -75,11 +89,31 @@ app.get("/opret-indlaeg", (req, res) => {
     res.render("create-post.ejs", {});
 });
 
+app.get("/edit-post", async (req, res) => {
+    const post = await BlogPost.find({ pageslug: req.query.editslug });
+
+    if (post.length > 0) {
+        let contentInMarkdown = NodeHtmlMarkdown.translate(post[0].postcontent);
+
+        res.render("edit-post.ejs", {
+            pageslug: post[0].pageslug,
+            postdate: post[0].postdate,
+            posttitle: post[0].posttitle,
+            postimage: post[0].postimage,
+            bakery: post[0].bakery,
+            city: post[0].city,
+            zipcode: post[0].zipcode,
+            tier: post[0].tier,
+            postexcerpt: post[0].postexcerpt,
+            postcontent: contentInMarkdown
+        });
+    }
+});
+
 app.get("/blog/:pageslug", async (req, res) => {
     const post = await BlogPost.find({ pageslug: req.params.pageslug });
 
     if (post.length > 0) {
-        console.log(post[0].pageslug);
         res.render("templates/post.ejs", {
             pageslug: post[0].pageslug,
             postdate: post[0].postdate,

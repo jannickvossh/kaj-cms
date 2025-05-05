@@ -1,14 +1,25 @@
 <%- include("../partials/header.ejs") %>
 
-<div class="post-meta">
-    <p class="post-meta__date"><%= postdate %></p>
-    <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
-</div>
+<main class="main">
+    <section class="section">
+        <div class="post-meta">
+            <p class="post-meta__date"><%= postdate %></p>
+            <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
+        </div>
+        
+        <h1><%= posttitle %></h1>
+    </section>
 
-<h1><%= posttitle %></h1>
+    <section class="section">
+        <% if (locals.postcontent) { %>
+            <%- postcontent %>
+        <% } %>
+    </section>
+</main>
 
-<% if (locals.postcontent) { %>
-    <%- postcontent %>
-<% } %>
+<form action="/edit-post">
+    <input type="text" name="editslug" hidden value="<%= pageslug %>">
+    <button type="submit">Redigér</button>
+</form>
 
 <%- include("../partials/footer.ejs") %>
