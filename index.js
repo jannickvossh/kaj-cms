@@ -12,6 +12,7 @@ import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
 import BlogPost from './models/blogpost.model.js';
+import User from './models/user.model.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
