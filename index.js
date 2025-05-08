@@ -82,6 +82,26 @@ app.post("/edit-post", async (req, res) => {
     }
 });
 
+app.post("/sign-up", async (req, res) => {
+    try {
+        const user = await User.find({ username: req.body.username });
+
+        if (!user.length > 0) {
+            const encryptedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+
+            await User.create({
+                username: req.body.username,
+                fullname: req.body.fullname,
+                password: encryptedPassword
+            });
+        } else {
+            console.log("Der findes allerede en bruger med dette brugernavn.");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 app.get("/", (req, res) => {
     res.render("home.ejs", {
         pageTitle: `${siteName}`,
@@ -112,6 +132,10 @@ app.get("/edit-post", async (req, res) => {
             postcontent: contentInMarkdown
         });
     }
+});
+
+app.get("/opret-bruger", (req, res) => {
+    res.render("signup.ejs", {});
 });
 
 app.get("/blog/:pageslug", async (req, res) => {
