@@ -1,0 +1,24 @@
+<%- include("partials/header.ejs") %>
+
+<form action="sign-up" method="POST">
+    <legend class="form__legend">Opret bruger</legend>
+    
+    <div class="form__field-group">
+        <label class="form__label" for="username">Brugernavn *</label>
+        <input class="form__input" type="text" name="username" required>
+    </div>
+
+    <div class="form__field-group">
+        <label class="form__label" for="fullname">Fulde navn *</label>
+        <input class="form__input" type="text" name="fullname" required>
+    </div>
+
+    <div class="form__field-group">
+        <label class="form__label" for="password">Adgangskode *</label>
+        <input class="form__input" type="password" name="password" required>
+    </div>
+
+    <button class="form__submit" type="submit">Opret</button>
+</form>
+
+<%- include("partials/footer.ejs") %>
