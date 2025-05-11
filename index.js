@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import fileUploadPkg from 'express-fileupload';
 const fileUpload = fileUploadPkg;
 import dotenv from 'dotenv';
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+    dotenv.config();
+}
 import { marked } from 'marked';
 import { minify } from 'htmlfy';
 import nodeHtmlMarkdownPkg from 'node-html-markdown';
