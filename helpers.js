@@ -75,3 +75,15 @@ export function slugify(str) {
              .replace(/-+/g, '-'); // remove consecutive hyphens
     return str;
 }
+
+// Følgende funktion er tyvstjålet herfra: https://stackoverflow.com/a/48031564
+export function generateAuthToken(n) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let token = '';
+
+    for (let i = 0; i < n; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return token;
+}

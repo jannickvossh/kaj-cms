@@ -23,7 +23,8 @@ import {
     getCurrentTime,
     getCurrentDateTime,
     dailyAdvice,
-    slugify
+    slugify,
+    generateAuthToken
 } from './helpers.js';
 
 const app = express();
@@ -55,7 +56,7 @@ app.post("/create-post", async (req, res) => {
             pageslug: slugifiedPostTitle,
             postdate: getCurrentDateTime(),
             posttitle: req.body.posttitle,
-            postimage: `${__dirname}/public/img/kajkage_nytorv-konditori.webp`,
+            postimage: `kajkage_nytorv-konditori.webp`,
             bakery: req.body.bakery,
             city: req.body.city,
             zipcode: req.body.zipcode,
@@ -89,10 +90,18 @@ app.post("/sign-up", async (req, res) => {
         if (!user.length > 0) {
             const encryptedPassword = bcrypt.hashSync(req.body.password, saltRounds);
 
+            let authToken = generateAuthToken(64);
+            const existingTokens = await User.find({ authtoken: authToken });
+
+            while (existingTokens.length > 0) {
+                authToken = generateAuthToken(64);
+            }
+
             await User.create({
                 username: req.body.username,
                 fullname: req.body.fullname,
-                password: encryptedPassword
+                password: encryptedPassword,
+                authtoken: authToken
             });
         } else {
             console.log("Der findes allerede en bruger med dette brugernavn.");
