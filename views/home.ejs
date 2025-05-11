@@ -17,8 +17,10 @@
                     <ul class="post-grid">
                         <li class="post-grid__post">
                             <a href="./indlaeg/<%= posts[i].pageslug %>" class="post-grid__post-link">
-                                <h3 class="post-grid__post-title"><%= posts[i].posttitle %></h3>
                                 <p class="post-grid__post-date"><%= posts[i].postdate %></p>
+                                <h3 class="post-grid__post-title"><%= posts[i].posttitle %></h3>
+                                <p class="post-grid__post-location"><%= posts[i].bakery %>, <%= posts[i].city %></p>
+                                <p class="post-grid__post-tier"><%= posts[i].tier %>-tier</p>
                             </a>
                         </li>
                     </ul>
