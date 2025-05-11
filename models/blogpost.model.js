@@ -4,6 +4,7 @@ const BlogPostSchema = mongoose.Schema({
     pageslug: String,
     postdate: String,
     posttime: String,
+    datetimestamp: String,
     posttitle: String,
     postimage: String,
     bakery: String,

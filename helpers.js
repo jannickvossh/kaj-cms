@@ -23,11 +23,10 @@ export function getCurrentTime() {
     return currentTime;
 }
 
-export function getCurrentDateTime() {
-    const currentDate = getCurrentDate();
-    const currentTime = getCurrentTime();
+export function getDateTimeStamp() {
+    const date = new Date();
 
-    return `${currentDate} ${currentTime}`;
+    return date
 }
 
 // Følgende funktion er tyvstjålet herfra: https://dev.to/bybydev/how-to-slugify-a-string-in-javascript-4o9n

@@ -23,8 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 import {
     getCurrentDate,
     getCurrentTime,
-    getCurrentDateTime,
-    dailyAdvice,
+    getDateTimeStamp,
     slugify,
     generateAuthToken
 } from './helpers.js';
@@ -61,6 +60,7 @@ app.post("/create-post", async (req, res) => {
             pageslug: slugifiedPostTitle,
             postdate: getCurrentDate(),
             posttime: getCurrentTime(),
+            datetimestamp: getDateTimeStamp(),
             posttitle: req.body.posttitle,
             postimage: `kajkage_nytorv-konditori.webp`,
             bakery: req.body.bakery,
@@ -165,7 +165,6 @@ app.get("/", async (req, res) => {
 
         res.render("home.ejs", {
             pageTitle: `${siteName}`,
-            dailyAdvice: dailyAdvice(),
             loggedIn,
             userInfo,
             posts
@@ -173,7 +172,6 @@ app.get("/", async (req, res) => {
     } else {
         res.render("home.ejs", {
             pageTitle: `${siteName}`,
-            dailyAdvice: dailyAdvice(),
             posts
         });
     }
