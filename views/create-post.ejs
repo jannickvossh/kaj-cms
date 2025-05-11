@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs") %>
 
-<form class="form" action="/create-post" method="POST">
+<form class="form" action="/create-post" method="POST" enctype="multipart/form-data">
     <legend class="form__legend">Nyt indlæg</legend>
 
     <div class="form__field-group">
@@ -10,7 +10,7 @@
 
     <div class="form__field-group">
         <label class="form__label" for="postimage">Billede *</label>
-        <input class="form__input" type="text" name="postimage" required>
+        <input class="form__input" type="file" name="postimage" required>
     </div>
 
     <fieldset>

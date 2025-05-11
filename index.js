@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import fileUploadPkg from 'express-fileupload';
+const fileUpload = fileUploadPkg;
 import dotenv from 'dotenv';
 dotenv.config();
 import { marked } from 'marked';
@@ -39,6 +41,7 @@ const databaseUri = process.env.CONNECTION_STRING;
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
@@ -55,13 +58,21 @@ app.post("/create-post", async (req, res) => {
         slugifiedPostTitle += `-${posts.length}`;
     }
 
+    const { postimage } = req.files;
+    let postImageName;
+    if (postimage) {
+        console.log(`${__dirname}/uploads/${postimage.name}`);
+        postimage.mv(`${__dirname}/uploads/${postimage.name}`);
+        postImageName = postimage.name;
+    }
+
     await BlogPost.create({
         pageslug: slugifiedPostTitle,
         postdate: getCurrentDate(),
         posttime: getCurrentTime(),
         datetimestamp: getDateTimeStamp(),
         posttitle: req.body.posttitle,
-        postimage: `kajkage_nytorv-konditori.webp`,
+        postimage: postImageName,
         bakery: req.body.bakery,
         city: req.body.city,
         zipcode: req.body.zipcode,
@@ -69,6 +80,8 @@ app.post("/create-post", async (req, res) => {
         postexcerpt: req.body.postexcerpt,
         postcontent: parsedPostContent
     });
+
+    res.redirect(`/indlaeg/${slugifiedPostTitle}`);
 });
 
 app.post("/sign-up", async (req, res) => {
