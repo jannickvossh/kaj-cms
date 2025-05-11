@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const BlogPostSchema = mongoose.Schema({
     pageslug: String,
     postdate: String,
+    posttime: String,
     posttitle: String,
     postimage: String,
     bakery: String,

@@ -59,7 +59,8 @@ app.post("/create-post", async (req, res) => {
 
         await BlogPost.create({
             pageslug: slugifiedPostTitle,
-            postdate: getCurrentDateTime(),
+            postdate: getCurrentDate(),
+            posttime: getCurrentTime(),
             posttitle: req.body.posttitle,
             postimage: `kajkage_nytorv-konditori.webp`,
             bakery: req.body.bakery,
@@ -146,30 +147,35 @@ app.post("/log-out", (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-    try {
-        const user = await User.find({ authtoken: req.cookies.authenticationToken });
+    const user = await User.find({ authtoken: req.cookies.authenticationToken });
 
-        if (user.length > 0) {
-            const userInfo = {
-                username: user[0].username,
-                fullName: user[0].fullname
-            };
-            loggedIn = true;
+    let posts;
+    const post = await BlogPost.find({});
+    if (post.length > 0) {
+        posts = post;
+    }
 
-            res.render("home.ejs", {
-                pageTitle: `${siteName}`,
-                dailyAdvice: dailyAdvice(),
-                loggedIn,
-                userInfo
-            });
-        } else {
-            res.render("home.ejs", {
-                pageTitle: `${siteName}`,
-                dailyAdvice: dailyAdvice()
-            });
-        }
-    } catch (err) {
-        console.log(err);
+    if (user.length > 0) {
+
+        const userInfo = {
+            username: user[0].username,
+            fullName: user[0].fullname
+        };
+        loggedIn = true;
+
+        res.render("home.ejs", {
+            pageTitle: `${siteName}`,
+            dailyAdvice: dailyAdvice(),
+            loggedIn,
+            userInfo,
+            posts
+        });
+    } else {
+        res.render("home.ejs", {
+            pageTitle: `${siteName}`,
+            dailyAdvice: dailyAdvice(),
+            posts
+        });
     }
 });
 
@@ -217,7 +223,7 @@ app.get("/log-ind", (req, res) => {
     }
 });
 
-app.get("/blog/:pageslug", async (req, res) => {
+app.get("/indlaeg/:pageslug", async (req, res) => {
     const post = await BlogPost.find({ pageslug: req.params.pageslug });
 
     if (post.length > 0) {

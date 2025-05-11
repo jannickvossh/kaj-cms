@@ -15,7 +15,6 @@
     --font-size-large: 1.563rem;
     --font-size-huge: 1.563rem;
     --font-size-enormous: 1.953rem;
-    --font-size-gigantic: 3.052rem;
     --font-size-small: 0.9rem;
     --font-size-tiny: 0.64rem;
 
@@ -305,15 +304,15 @@ body {
 }
 
 h1 {
-    font-size: var(--font-size-gigantic);
-}
-
-h2 {
     font-size: var(--font-size-enormous);
 }
 
-h3 {
+h2 {
     font-size: var(--font-size-huge);
+}
+
+h3 {
+    font-size: var(--font-size-large);
 }
 
 a {
@@ -328,4 +327,42 @@ nav a {
 
 .underline {
     text-decoration: dotted underline;
+}
+
+/*
+    ------------------------------
+    | HERO                       |
+    ------------------------------
+*/
+
+.hero {
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    background-color: var(--color-gray);
+    box-sizing: border-box;
+    padding: var(--spacing-medium) 0;
+}
+
+.hero__inner {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+}
+
+/*
+    ------------------------------
+    | INDHOLD                    |
+    ------------------------------
+*/
+
+.content {
+    box-sizing: border-box;
+    padding: var(--spacing-medium) 0;
+}
+
+.content__inner {
+    width: var(--content-width);
+    max-width: var(--content-max-width);
+    margin: 0 auto;
 }
