@@ -44,96 +44,83 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.post("/create-post", async (req, res) => {
-    try {
-        let parsedPostContent = marked.parse(req.body.postcontent);
-        parsedPostContent = minify(parsedPostContent);
+    let parsedPostContent = marked.parse(req.body.postcontent);
+    parsedPostContent = minify(parsedPostContent);
 
-        let slugifiedPostTitle = slugify(req.body.posttitle);
+    let slugifiedPostTitle = slugify(req.body.posttitle);
 
-        const posts = await BlogPost.find({ posttitle: req.body.posttitle });
+    const posts = await BlogPost.find({ posttitle: req.body.posttitle });
 
-        if (posts.length > 0) {
-            slugifiedPostTitle += `-${posts.length}`;
-        }
-
-        await BlogPost.create({
-            pageslug: slugifiedPostTitle,
-            postdate: getCurrentDate(),
-            posttime: getCurrentTime(),
-            datetimestamp: getDateTimeStamp(),
-            posttitle: req.body.posttitle,
-            postimage: `kajkage_nytorv-konditori.webp`,
-            bakery: req.body.bakery,
-            city: req.body.city,
-            zipcode: req.body.zipcode,
-            tier: req.body.tier,
-            postexcerpt: req.body.postexcerpt,
-            postcontent: parsedPostContent
-        });
-
-    } catch (err) {
-        console.log(err);
+    if (posts.length > 0) {
+        slugifiedPostTitle += `-${posts.length}`;
     }
+
+    await BlogPost.create({
+        pageslug: slugifiedPostTitle,
+        postdate: getCurrentDate(),
+        posttime: getCurrentTime(),
+        datetimestamp: getDateTimeStamp(),
+        posttitle: req.body.posttitle,
+        postimage: `kajkage_nytorv-konditori.webp`,
+        bakery: req.body.bakery,
+        city: req.body.city,
+        zipcode: req.body.zipcode,
+        tier: req.body.tier,
+        postexcerpt: req.body.postexcerpt,
+        postcontent: parsedPostContent
+    });
 });
 
 app.post("/sign-up", async (req, res) => {
-    try {
-        const user = await User.find({ username: req.body.username });
+    const user = await User.find({ username: req.body.username });
 
-        if (!user.length > 0) {
-            const encryptedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+    if (!user.length > 0) {
+        const encryptedPassword = bcrypt.hashSync(req.body.password, saltRounds);
 
-            let authToken = generateAuthToken(64);
-            const existingTokens = await User.find({ authtoken: authToken });
+        let authToken = generateAuthToken(64);
+        const existingTokens = await User.find({ authtoken: authToken });
 
-            while (existingTokens.length > 0) {
-                authToken = generateAuthToken(64);
-            }
-
-            await User.create({
-                username: req.body.username,
-                fullname: req.body.fullname,
-                password: encryptedPassword,
-                authtoken: authToken
-            });
-
-            res.redirect("/");
-        } else {
-            console.log("Der findes allerede en bruger med dette brugernavn.");
-            res.redirect("/opret-bruger");
+        while (existingTokens.length > 0) {
+            authToken = generateAuthToken(64);
         }
-    } catch (err) {
-        console.log(err);
+
+        await User.create({
+            username: req.body.username,
+            fullname: req.body.fullname,
+            password: encryptedPassword,
+            authtoken: authToken
+        });
+
+        res.redirect("/");
+    } else {
+        console.log("Der findes allerede en bruger med dette brugernavn.");
+        res.redirect("/opret-bruger");
     }
 });
 
 app.post("/log-in", async (req, res) => {
-    try {
-        const user = await User.find({ username: req.body.username });
+    const user = await User.find({ username: req.body.username });
 
-        if (user.length > 0) {
-            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-                if (!err) {
-                    res
-                        .cookie(
-                            'authenticationToken',
-                            user[0].authtoken,
-                            {
-                                expires: new Date(Date.now() + 24 * 3600000 * 365),
-                                httpOnly: true
-                            }
-                        )
-                        .redirect("/");
-                } else {
-                    console.log(err);
-                }
-            });
-        } else {
-            console.log("Der findes ingen bruger med dette brugernavn.");
-            res.redirect("/log-ind");
-        }
-    } catch (err) {
-        console.log(err);
+    if (user.length > 0) {
+        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+            if (!err) {
+                res
+                    .cookie(
+                        'authenticationToken',
+                        user[0].authtoken,
+                        {
+                            expires: new Date(Date.now() + 24 * 3600000 * 365),
+                            httpOnly: true
+                        }
+                    )
+                    .redirect("/");
+            } else {
+                console.log(err);
+            }
+        });
+    } else {
+        console.log("Der findes ingen bruger med dette brugernavn.");
+        res.redirect("/log-ind");
     }
 });
 
@@ -178,26 +165,22 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/opret-indlaeg", async (req, res) => {
-    try {
-        const user = await User.find({ authtoken: req.cookies.authenticationToken });
+    const user = await User.find({ authtoken: req.cookies.authenticationToken });
 
-        if (user.length > 0) {
-            const userInfo = {
-                username: user[0].username,
-                fullName: user[0].fullname
-            };
-            loggedIn = true;
+    if (user.length > 0) {
+        const userInfo = {
+            username: user[0].username,
+            fullName: user[0].fullname
+        };
+        loggedIn = true;
 
-            res.render("create-post.ejs", {
-                pageTitle: `Opret indlæg - ${siteName}`,
-                loggedIn,
-                userInfo
-            });
-        } else {
-            res.redirect("/");
-        }
-    } catch (err) {
-        console.log(err);
+        res.render("create-post.ejs", {
+            pageTitle: `Opret indlæg - ${siteName}`,
+            loggedIn,
+            userInfo
+        });
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -225,48 +208,44 @@ app.get("/indlaeg/:pageslug", async (req, res) => {
     const post = await BlogPost.find({ pageslug: req.params.pageslug });
 
     if (post.length > 0) {
-        try {
-            const user = await User.find({ authtoken: req.cookies.authenticationToken });
+        const user = await User.find({ authtoken: req.cookies.authenticationToken });
 
-            if (user.length > 0) {
-                const userInfo = {
-                    username: user[0].username,
-                    fullName: user[0].fullname
-                };
-                loggedIn = true;
+        if (user.length > 0) {
+            const userInfo = {
+                username: user[0].username,
+                fullName: user[0].fullname
+            };
+            loggedIn = true;
 
-                res.render("templates/post.ejs", {
-                    pageTitle: `${post[0].posttitle} - ${siteName}`,
-                    pageslug: post[0].pageslug,
-                    postdate: post[0].postdate,
-                    posttitle: post[0].posttitle,
-                    postimage: post[0].postimage,
-                    bakery: post[0].bakery,
-                    city: post[0].city,
-                    zipcode: post[0].zipcode,
-                    tier: post[0].tier,
-                    postexcerpt: post[0].postexcerpt,
-                    postcontent: post[0].postcontent,
-                    loggedIn,
-                    userInfo
-                });
-            } else {
-                res.render("templates/post.ejs", {
-                    pageTitle: `${post[0].posttitle} - ${siteName}`,
-                    pageslug: post[0].pageslug,
-                    postdate: post[0].postdate,
-                    posttitle: post[0].posttitle,
-                    postimage: post[0].postimage,
-                    bakery: post[0].bakery,
-                    city: post[0].city,
-                    zipcode: post[0].zipcode,
-                    tier: post[0].tier,
-                    postexcerpt: post[0].postexcerpt,
-                    postcontent: post[0].postcontent
-                });
-            }
-        } catch (err) {
-            console.log(err);
+            res.render("templates/post.ejs", {
+                pageTitle: `${post[0].posttitle} - ${siteName}`,
+                pageslug: post[0].pageslug,
+                postdate: post[0].postdate,
+                posttitle: post[0].posttitle,
+                postimage: post[0].postimage,
+                bakery: post[0].bakery,
+                city: post[0].city,
+                zipcode: post[0].zipcode,
+                tier: post[0].tier,
+                postexcerpt: post[0].postexcerpt,
+                postcontent: post[0].postcontent,
+                loggedIn,
+                userInfo
+            });
+        } else {
+            res.render("templates/post.ejs", {
+                pageTitle: `${post[0].posttitle} - ${siteName}`,
+                pageslug: post[0].pageslug,
+                postdate: post[0].postdate,
+                posttitle: post[0].posttitle,
+                postimage: post[0].postimage,
+                bakery: post[0].bakery,
+                city: post[0].city,
+                zipcode: post[0].zipcode,
+                tier: post[0].tier,
+                postexcerpt: post[0].postexcerpt,
+                postcontent: post[0].postcontent
+            });
         }
     } else {
         res.render("page-404.ejs", {});
