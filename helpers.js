@@ -66,6 +66,13 @@ export function dailyAdvice() {
     return advice;
 }
 
+function aYearFromNow() {
+    let date = new Date();
+    date.setDate(date.getDate() + 365);
+
+    return date;
+}
+
 // Følgende funktion er tyvstjålet herfra: https://dev.to/bybydev/how-to-slugify-a-string-in-javascript-4o9n
 export function slugify(str) {
     str = str.replace(/^\s+|\s+$/g, ''); // trim leading/trailing white space
@@ -86,4 +93,16 @@ export function generateAuthToken(n) {
     }
 
     return token;
+}
+
+/*
+ * Funktioner tilhørende cookies
+ */
+
+export function generateExpDate(expDays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (expDays*24*60*60*1000));
+    let expires = d.toUTCString();
+
+    return expires;
 }

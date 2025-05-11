@@ -4,9 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { marked } from 'marked';
 import { minify } from 'htmlfy';
-import pkg from 'node-html-markdown';
-const { NodeHtmlMarkdown, NodeHtmlMarkdownOptions } = pkg;
+import nodeHtmlMarkdownPkg from 'node-html-markdown';
+const { NodeHtmlMarkdown, NodeHtmlMarkdownOptions } = nodeHtmlMarkdownPkg;
 import mongoose from 'mongoose';
+import cookieParserPkg from 'cookie-parser';
+const cookieParser = cookieParserPkg;
 
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
@@ -24,7 +26,8 @@ import {
     getCurrentDateTime,
     dailyAdvice,
     slugify,
-    generateAuthToken
+    generateAuthToken,
+    generateExpDate
 } from './helpers.js';
 
 const app = express();
@@ -38,6 +41,7 @@ const clientOptions = { serverApi: { version: '1', strict: true, deprecationErro
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/create-post", async (req, res) => {
     try {
@@ -103,15 +107,56 @@ app.post("/sign-up", async (req, res) => {
                 password: encryptedPassword,
                 authtoken: authToken
             });
+
+            res.redirect("/");
         } else {
             console.log("Der findes allerede en bruger med dette brugernavn.");
+            res.redirect("/opret-bruger");
         }
     } catch (err) {
         console.log(err);
     }
 });
 
-app.get("/", (req, res) => {
+app.post("/log-in", async (req, res) => {
+    try {
+        const user = await User.find({ username: req.body.username });
+
+        if (user.length > 0) {
+            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                if (!err) {
+                    res
+                        .cookie(
+                            'authenticationToken',
+                            user[0].authtoken,
+                            {
+                                expires: generateExpDate(365),
+                                httpOnly: true
+                            }
+                        )
+                        .redirect("/");
+                } else {
+                    console.log(err);
+                }
+            });
+        } else {
+            console.log("Der findes ingen bruger med dette brugernavn.");
+            res.redirect("/login");
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/", async (req, res) => {
+    if (req.cookies.authenticationToken) {
+        const user = await User.find({ authtoken: req.cookies.authenticationToken });
+
+        if (user.length > 0) {
+            console.log(user[0].username);
+        }
+    }
+
     res.render("home.ejs", {
         pageTitle: `${siteName}`,
         dailyAdvice: dailyAdvice()
@@ -122,7 +167,7 @@ app.get("/opret-indlaeg", (req, res) => {
     res.render("create-post.ejs", {});
 });
 
-app.get("/edit-post", async (req, res) => {
+app.get("/rediger-indlaeg", async (req, res) => {
     const post = await BlogPost.find({ pageslug: req.query.editslug });
 
     if (post.length > 0) {
@@ -145,6 +190,10 @@ app.get("/edit-post", async (req, res) => {
 
 app.get("/opret-bruger", (req, res) => {
     res.render("signup.ejs", {});
+});
+
+app.get("/log-ind", (req, res) => {
+    res.render("login.ejs", {});
 });
 
 app.get("/blog/:pageslug", async (req, res) => {
