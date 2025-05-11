@@ -12,4 +12,8 @@
 
 <a href="/">Tilbage til forsiden</a>
 
+<% if (locals.loggedIn) { %>
+    <%- include("partials/admin-bar.ejs") %>
+<% } %>
+
 <%- include("partials/footer.ejs") %>

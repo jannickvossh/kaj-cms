@@ -94,15 +94,3 @@ export function generateAuthToken(n) {
 
     return token;
 }
-
-/*
- * Funktioner tilhørende cookies
- */
-
-export function generateExpDate(expDays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (expDays*24*60*60*1000));
-    let expires = d.toUTCString();
-
-    return expires;
-}

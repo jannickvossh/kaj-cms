@@ -48,4 +48,8 @@
     <button class="form__submit" type="submit">Opret indlæg</button>
 </form>
 
+<% if (locals.loggedIn) { %>
+    <%- include("partials/admin-bar.ejs") %>
+<% } %>
+
 <%- include("partials/footer.ejs") %>
