@@ -12,20 +12,20 @@
         <section class="section">
             <h2>Alle indlæg</h2>
 
-            <% if (locals.posts) {
-                for (let i = 0; i < posts.length; i++) { %>
-                    <ul class="post-grid">
-                        <li class="post-grid__post">
-                            <a href="./indlaeg/<%= posts[i].pageslug %>" class="post-grid__post-link">
-                                <p class="post-grid__post-date"><%= posts[i].postdate %></p>
-                                <h3 class="post-grid__post-title"><%= posts[i].posttitle %></h3>
-                                <p class="post-grid__post-location"><%= posts[i].bakery %>, <%= posts[i].city %></p>
-                                <p class="post-grid__post-tier"><%= posts[i].tier %>-tier</p>
-                            </a>
-                        </li>
-                    </ul>
-                <% }
-            } else { %>
+            <% if (locals.posts) { %>
+                <ul class="post-grid">
+                <% for (let i = 0; i < posts.length; i++) { %>
+                    <li class="post-grid__post">
+                        <a href="./indlaeg/<%= posts[i].pageslug %>" class="post-grid__post-link">
+                            <p class="post-grid__post-date"><%= posts[i].postdate %></p>
+                            <h3 class="post-grid__post-title"><%= posts[i].posttitle %></h3>
+                            <p class="post-grid__post-location"><%= posts[i].bakery %>, <%= posts[i].city %></p>
+                            <p class="post-grid__post-tier"><%= posts[i].tier %>-tier</p>
+                        </a>
+                    </li>
+                <% } %>
+                </ul>
+            <% } else { %>
                 <p>Der er desværre ingen indlæg at vise. Men det skal der nok komme!</p>
             <% } %>
         </section>

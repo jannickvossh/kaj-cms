@@ -39,7 +39,7 @@
     --spacing-large: 60px;
     --spacing-huge: 100px;
 
-    /* Widths */
+    /* Bredder */
     --width-desktop: 1200px;
     --width-tablet: 768px;
     --width-phone: 480px;
@@ -365,4 +365,30 @@ nav a {
     width: var(--content-width);
     max-width: var(--content-max-width);
     margin: 0 auto;
+}
+
+/*
+    ------------------------------
+    | POSTS-GRID                 |
+    ------------------------------
+*/
+
+.post-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: var(--spacing-medium);
+}
+
+@media screen and (min-width: 480px) {
+
+    .post-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .post-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
