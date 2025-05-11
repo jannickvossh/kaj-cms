@@ -35,6 +35,8 @@ const port = 3000;
 
 const siteName = "Jagten på den Perfekte Kajkage";
 
+let loggedIn = false;
+
 const databaseUri = process.env.CONNECTION_STRING;
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
@@ -153,14 +155,25 @@ app.get("/", async (req, res) => {
         const user = await User.find({ authtoken: req.cookies.authenticationToken });
 
         if (user.length > 0) {
-            console.log(user[0].username);
-        }
-    }
+            const userInfo = {
+                username: user[0].username,
+                fullName: user[0].fullname
+            };
+            loggedIn = true;
 
-    res.render("home.ejs", {
-        pageTitle: `${siteName}`,
-        dailyAdvice: dailyAdvice()
-    });
+            res.render("home.ejs", {
+                pageTitle: `${siteName}`,
+                dailyAdvice: dailyAdvice(),
+                loggedIn,
+                userInfo
+            });
+        }
+    } else {
+        res.render("home.ejs", {
+            pageTitle: `${siteName}`,
+            dailyAdvice: dailyAdvice()
+        });
+    }
 });
 
 app.get("/opret-indlaeg", (req, res) => {

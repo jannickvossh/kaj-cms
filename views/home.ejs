@@ -2,4 +2,8 @@
 
 <h1><%= dailyAdvice %></h1>
 
+<% if (loggedIn) { %>
+    <%- include("partials/admin-bar.ejs") %>
+<% } %>
+
 <%- include("partials/footer.ejs") %>
