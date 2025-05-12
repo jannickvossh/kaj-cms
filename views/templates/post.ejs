@@ -21,13 +21,11 @@
     </div>
 </div>
 
-<main class="content">
-    <div class="content__inner">
-        <section class="section">
-            <% if (locals.postcontent) { %>
-                <%- postcontent %>
-            <% } %>
-        </section>
+<main class="content content--post">
+    <div class="content__inner content__inner--post">
+        <% if (locals.postcontent) { %>
+            <%- postcontent %>
+        <% } %>
     </div>
 </main>
 

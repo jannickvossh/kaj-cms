@@ -48,7 +48,7 @@
     --width-phone: 480px;
     --content-width: calc(100% - 2 * var(--spacing-small));
     --content-max-width: var(--width-desktop);
-    --content-max-width-narrow: var(--width-tablet);
+    --content-max-width-narrow: calc(var(--width-desktop) - 300px);
 
     /* Andre variabler */
     --border-radius: 8px;
@@ -540,6 +540,10 @@ nav a {
     margin: 0;
     font-size: var(--font-size-large);
     color: var(--color-highlight);
+}
+
+.content__inner--post {
+    max-width: var(--content-max-width-narrow);
 }
 
 /*
