@@ -81,7 +81,9 @@ app.post("/create-post", async (req, res) => {
         postcontent: parsedPostContent
     });
 
-    res.redirect(`/indlaeg/${slugifiedPostTitle}`);
+    setTimeout(() => {
+        res.redirect(`/indlaeg/${slugifiedPostTitle}`);
+    }, 500);
 });
 
 app.post("/sign-up", async (req, res) => {
