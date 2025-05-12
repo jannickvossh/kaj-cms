@@ -53,6 +53,7 @@
     /* Andre variabler */
     --border-radius: 8px;
     --transition-standard: 200ms ease-in-out;
+    --box-shadow-standard: 0 0 9px -3px color-mix(in srgb, var(--color-dark), transparent 50%);
 }
 
 @media screen and (min-width: 768px) {
@@ -349,6 +350,7 @@ nav a {
     background-color: var(--color-darkgray);
     padding: var(--spacing-small) 0;
     z-index: 2;
+    box-shadow: var(--box-shadow-standard);
 }
 
 .header__inner {
@@ -510,6 +512,8 @@ nav a {
     align-items: center;
     gap: var(--spacing-medium);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: var(--box-shadow-standard);
+    z-index: 2;
 }
 
 .admin-bar__current-user {
