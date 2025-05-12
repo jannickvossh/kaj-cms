@@ -528,6 +528,56 @@ nav a {
 
 /*
     ------------------------------
+    | POSTS-LIST                 |
+    ------------------------------
+*/
+
+.post-list__post:not(:last-child) {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-light), transparent 92%);
+}
+
+.post-list__post-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-medium);
+    text-decoration: none;
+    padding: var(--spacing-small);
+    transition: background-color var(--transition-standard);
+}
+
+.post-list__post-link:hover {
+    background-color: color-mix(in srgb, var(--color-light), transparent 98%);
+}
+
+.post-list__post-date {
+    font-size: var(--font-size-small);
+    color: color-mix(in srgb, var(--color-light), transparent 35%);
+    margin: 0 0 0.5em;
+}
+
+.post-list__post-title {
+    font-size: var(--font-size-medium);
+    margin: 0;
+}
+
+.post-list__post-delete {
+    border: none;
+    background-color: var(--color-red);
+    color: var(--color-light);
+    padding: var(--spacing-tiny) var(--spacing-small);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-small);
+    transition: background-color var(--transition-standard);
+    cursor: pointer;
+}
+
+.post-list__post-delete:hover {
+    background-color: color-mix(in srgb, var(--color-red), var(--color-dark) 15%);
+}
+
+/*
+    ------------------------------
     | INDLÆG                     |
     ------------------------------
 */
