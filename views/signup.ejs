@@ -21,4 +21,8 @@
     <button class="form__submit" type="submit">Opret</button>
 </form>
 
+<% if (locals.loggedIn) { %>
+    <%- include("partials/admin-bar.ejs") %>
+<% } %>
+
 <%- include("partials/footer.ejs") %>

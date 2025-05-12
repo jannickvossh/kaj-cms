@@ -140,11 +140,24 @@ app.post("/log-in", async (req, res) => {
 });
 
 app.post("/log-out", (req, res) => {
-    console.log(req.cookies.authenticationToken);
     if (req.cookies.authenticationToken) {
         res
             .clearCookie('authenticationToken')
             .redirect("/");
+    }
+});
+
+app.post("/delete-post", async (req, res) => {
+    const posts = await BlogPost.find({ pageslug: req.body.postslug });
+
+    if (posts.length > 0) {
+        await BlogPost.deleteOne({ pageslug: req.body.postslug });
+
+        setTimeout(() => {
+            res.redirect("/indlaegsarkiv");
+        }, 500);
+    } else {
+        res.redirect("/indlaegsarkiv");
     }
 });
 
@@ -193,6 +206,34 @@ app.get("/opret-indlaeg", async (req, res) => {
             pageTitle: `Opret indlæg - ${siteName}`,
             loggedIn,
             userInfo
+        });
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get("/indlaegsarkiv", async (req, res) => {
+    const user = await User.find({ authtoken: req.cookies.authenticationToken });
+
+    let posts;
+    const post = await BlogPost.find({});
+    if (post.length > 0) {
+        posts = post;
+    }
+
+    if (user.length > 0) {
+
+        const userInfo = {
+            username: user[0].username,
+            fullName: user[0].fullname
+        };
+        loggedIn = true;
+
+        res.render("post-archive.ejs", {
+            pageTitle: `Indlægsarkiv - ${siteName}`,
+            loggedIn,
+            userInfo,
+            posts
         });
     } else {
         res.redirect("/");

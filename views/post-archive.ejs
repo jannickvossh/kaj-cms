@@ -1,0 +1,39 @@
+<%- include("partials/header.ejs") %>
+
+<main class="content">
+    <div class="content__inner">
+        <section class="section">
+            <h2>Indlægsarkiv</h2>
+
+            <% if (locals.posts) { %>
+                <ul class="post-list">
+                <% for (let i = posts.length - 1; i > -1; i--) { %>
+                    <li class="post-list__post">
+                        <a href="./indlaeg/<%= posts[i].pageslug %>" class="post-list__post-link">
+                            <div class="post-list__post-content">
+                                <p class="post-list__post-date"><%= posts[i].postdate %></p>
+                                <h3 class="post-list__post-title"><%= posts[i].posttitle %></h3>
+                            </div>
+
+                            <% if (userInfo.username === "jannickvh") { %>
+                                <form action="/delete-post" method="POST">
+                                    <input type="hidden" name="postslug" value="<%= posts[i].pageslug %>">
+                                    <button type="submit" class="post-list__delete-post">Slet</button>
+                                </form>
+                            <% } %>
+                        </a>
+                    </li>
+                <% } %>
+                </ul>
+            <% } else { %>
+                <p>Der er desværre ingen indlæg at vise. Men det skal der nok komme!</p>
+            <% } %>
+        </section>
+    </div>
+</main>
+
+<% if (locals.loggedIn) { %>
+    <%- include("partials/admin-bar.ejs") %>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
