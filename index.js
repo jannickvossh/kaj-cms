@@ -58,13 +58,13 @@ app.post("/create-post", async (req, res) => {
         slugifiedPostTitle += `-${posts.length}`;
     }
 
-    const { postimage } = req.files;
-    let postImageName;
-    if (postimage) {
-        console.log(`${__dirname}/uploads/${postimage.name}`);
-        postimage.mv(`${__dirname}/uploads/${postimage.name}`);
-        postImageName = postimage.name;
-    }
+    // const { postimage } = req.files;
+    // let postImageName;
+    // if (postimage) {
+    //     console.log(`${__dirname}/uploads/${postimage.name}`);
+    //     postimage.mv(`${__dirname}/uploads/${postimage.name}`);
+    //     postImageName = postimage.name;
+    // }
 
     await BlogPost.create({
         pageslug: slugifiedPostTitle,
@@ -72,7 +72,7 @@ app.post("/create-post", async (req, res) => {
         posttime: getCurrentTime(),
         datetimestamp: getDateTimeStamp(),
         posttitle: req.body.posttitle,
-        postimage: postImageName,
+        // postimage: postImageName,
         bakery: req.body.bakery,
         city: req.body.city,
         zipcode: req.body.zipcode,
@@ -235,7 +235,7 @@ app.get("/indlaeg/:pageslug", async (req, res) => {
                 pageslug: post[0].pageslug,
                 postdate: post[0].postdate,
                 posttitle: post[0].posttitle,
-                postimage: post[0].postimage,
+                // postimage: post[0].postimage,
                 bakery: post[0].bakery,
                 city: post[0].city,
                 zipcode: post[0].zipcode,
@@ -251,7 +251,7 @@ app.get("/indlaeg/:pageslug", async (req, res) => {
                 pageslug: post[0].pageslug,
                 postdate: post[0].postdate,
                 posttitle: post[0].posttitle,
-                postimage: post[0].postimage,
+                // postimage: post[0].postimage,
                 bakery: post[0].bakery,
                 city: post[0].city,
                 zipcode: post[0].zipcode,
