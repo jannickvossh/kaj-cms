@@ -199,10 +199,21 @@ app.get("/opret-indlaeg", async (req, res) => {
     }
 });
 
-app.get("/opret-bruger", (req, res) => {
-    if (!req.cookies.authenticationToken) {
+app.get("/opret-bruger", async (req, res) => {
+
+    const user = await User.find({ authtoken: req.cookies.authenticationToken });
+
+    if (user.length > 0 && user[0].username === "jannickvh") {
+        const userInfo = {
+            username: user[0].username,
+            fullName: user[0].fullname
+        };
+        loggedIn = true;
+
         res.render("signup.ejs", {
             pageTitle: `Opret bruger - ${siteName}`,
+            loggedIn,
+            userInfo
         });
     } else {
         res.redirect("/");
