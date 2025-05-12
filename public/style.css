@@ -53,7 +53,7 @@
     /* Andre variabler */
     --border-radius: 8px;
     --transition-standard: 200ms ease-in-out;
-    --box-shadow-standard: 0 0 9px -3px color-mix(in srgb, var(--color-dark), transparent 50%);
+    --box-shadow-standard: 0 0 11px color-mix(in srgb, var(--color-dark), transparent 40%);
 }
 
 @media screen and (min-width: 768px) {
@@ -470,6 +470,12 @@ nav a {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: var(--spacing-medium);
+}
+
+.post-grid__post {
+    background-color: var(--color-darkgray);
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
 .post-grid__post-link {
