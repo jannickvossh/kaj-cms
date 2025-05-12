@@ -422,6 +422,10 @@ nav a {
     grid-gap: var(--spacing-medium);
 }
 
+.post-grid__post-link {
+    text-decoration: none;
+}
+
 @media screen and (min-width: 480px) {
 
     .post-grid {
@@ -471,7 +475,6 @@ nav a {
     font-size: var(--font-size-small);
     display: block;
     white-space: nowrap;
-    text-decoration: dotted underline;
     color: color-mix(in srgb, var(--color-light), transparent 35%);
     transition: color var(--transition-standard);
 }
