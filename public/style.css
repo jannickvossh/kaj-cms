@@ -392,3 +392,40 @@ nav a {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/*
+    ------------------------------
+    | ADMIN-BAR                  |
+    ------------------------------
+*/
+
+.admin-bar {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    padding: var(--spacing-tiny) var(--spacing-small);
+    background-color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+}
+
+.admin-bar__current-user {
+    margin: 0;
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+}
+
+.admin-bar__nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+}
+
+.admin-bar__nav-link {
+    font-size: var(--font-size-small);
+    display: block;
+    white-space: nowrap;
+    text-decoration: dotted underline;
+}
