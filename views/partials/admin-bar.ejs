@@ -8,6 +8,11 @@
             <li class="admin-bar__nav-item">
                 <a href="/opret-indlaeg" class="admin-bar__nav-link">Opret indlæg</a>
             </li>
+            <% if (userInfo.username === "jannickvh") { %>
+                <li class="admin-bar__nav-item">
+                    <a href="/opret-bruger" class="admin-bar__nav-link">Opret bruger</a>
+                </li>
+            <% } %>
         </ul>
     </nav>
     <form action="/log-out" method="POST">
