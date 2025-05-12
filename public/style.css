@@ -450,6 +450,35 @@ nav a {
     text-decoration: none;
 }
 
+.post-grid__post-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--spacing-tiny);
+    height: 160px;
+    box-sizing: border-box;
+    padding: var(--spacing-small);
+}
+
+.post-grid__post-date {
+    font-size: var(--font-size-small);
+    color: color-mix(in srgb, var(--color-light), transparent 35%);
+    margin: 0 0 auto;
+}
+
+.post-grid__post-title {
+    margin: 0;
+}
+
+.post-grid__post-location {
+    font-size: var(--font-size-small);
+    margin: 0;
+}
+
+.post-grid__post-tier {
+    margin: 0;
+}
+
 @media screen and (min-width: 480px) {
 
     .post-grid {
