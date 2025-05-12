@@ -1,20 +1,31 @@
 <%- include("../partials/header.ejs") %>
 
-<main class="main">
-    <section class="section">
-        <div class="post-meta">
-            <p class="post-meta__date"><%= postdate %></p>
-            <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
-        </div>
-        
-        <h1><%= posttitle %></h1>
-    </section>
+<div class="hero">
+    <% if (locals.postimage) { %>
+        <img src="<%= postimage %>" class="hero__background-image">
+        <div class="hero__overlay"></div>
+    <% } %>
 
-    <section class="section">
-        <% if (locals.postcontent) { %>
-            <%- postcontent %>
-        <% } %>
-    </section>
+    <div class="hero__inner">
+        <p class="post-date"><%= postdate %></p>
+
+        <h1 class="hero__title"><%= posttitle %>></h1>
+
+        <div class="post-meta">
+            <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
+            <p class="post-meta__tier"><%= tier %>-tier</p>
+        </div>
+    </div>
+</div>
+
+<main class="content">
+    <div class="content__inner">
+        <section class="section">
+            <% if (locals.postcontent) { %>
+                <%- postcontent %>
+            <% } %>
+        </section>
+    </div>
 </main>
 
 <% if (locals.loggedIn) { %>

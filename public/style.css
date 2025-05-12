@@ -348,6 +348,7 @@ nav a {
     left: 0;
     background-color: var(--color-darkgray);
     padding: var(--spacing-small) 0;
+    z-index: 2;
 }
 
 .header__inner {
@@ -383,14 +384,24 @@ nav a {
     display: flex;
     align-items: flex-end;
     background-color: var(--color-gray);
-    box-sizing: border-box;
-    padding: var(--spacing-medium) 0;
+    position: relative;
+}
+
+.hero__background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .hero__inner {
     width: var(--content-width);
     max-width: var(--content-max-width);
     margin: 0 auto;
+    box-sizing: border-box;
+    padding: var(--spacing-medium) 0;
 }
 
 /*
