@@ -28,9 +28,12 @@
     /* Farver */
     --color-light: #FFFFFF;
     --color-dark: #011627;
+    --color-darkgray: #242E38;
     --color-gray: #5F6F7D;
     --color-lightgray: #C7CFD6;
     --color-highlight: #ED9B40;
+    --color-red: #D72638;
+    --color-admin-bar: #10151A;
 
     /* Afstande */
     --spacing-tiny: 10px;
@@ -46,6 +49,9 @@
     --content-width: calc(100% - 2 * var(--spacing-small));
     --content-max-width: var(--width-desktop);
     --content-max-width-narrow: var(--width-tablet);
+
+    /* Andre variabler */
+    --border-radius: 8px;
 }
 
 @media screen and (min-width: 768px) {
@@ -405,7 +411,7 @@ nav a {
     bottom: 0;
     transform: translateX(-50%);
     padding: var(--spacing-tiny) var(--spacing-small);
-    background-color: var(--color-gray);
+    background-color: var(--color-darkgray);
     display: flex;
     align-items: center;
     gap: var(--spacing-small);
@@ -428,4 +434,15 @@ nav a {
     display: block;
     white-space: nowrap;
     text-decoration: dotted underline;
+}
+
+.admin-bar__logout {
+    appearance: none;
+    background-color: var(--color-red);
+    border: none;
+    font-size: var(--font-size-small);
+    color: var(--color-light);
+    padding: var(--spacing-tiny) var(--spacing-tiny);
+    cursor: pointer;
+    border-radius: var(--border-radius);
 }
