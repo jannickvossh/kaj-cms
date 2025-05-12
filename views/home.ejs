@@ -17,7 +17,7 @@
 
             <% if (locals.posts) { %>
                 <ul class="post-grid">
-                <% for (let i = 0; i < posts.length; i++) { %>
+                <% for (let i = posts.length - 1; i > -1; i--) { %>
                     <li class="post-grid__post">
                         <a href="./indlaeg/<%= posts[i].pageslug %>" class="post-grid__post-link">
                             <div class="post-grid__post-content">
