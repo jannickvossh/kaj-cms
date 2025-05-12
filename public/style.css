@@ -411,12 +411,24 @@ nav a {
 }
 
 .hero__inner {
+    height: 100%;
     width: var(--content-width);
     max-width: var(--content-max-width);
     margin: 0 auto;
     box-sizing: border-box;
     padding: var(--spacing-medium) 0;
-    z-index: 1
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hero__title {
+    margin: 0;
+}
+
+.hero__title:has(+ *) {
+    margin-bottom: 0.5em;
 }
 
 /*
@@ -493,6 +505,33 @@ nav a {
     .post-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+/*
+    ------------------------------
+    | INDLÆG                     |
+    ------------------------------
+*/
+
+.hero__columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.post__date {
+    font-size: var(--font-size-small);
+    margin: 0 0 1.5em;
+    color: color-mix(in srgb, var(--color-light), transparent 35%);
+}
+
+.post__location {
+    margin: 0;
+}
+
+.post__tier {
+    margin: 0;
+    font-size: var(--font-size-large);
 }
 
 /*

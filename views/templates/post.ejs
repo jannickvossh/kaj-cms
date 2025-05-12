@@ -7,13 +7,16 @@
     <% } %>
 
     <div class="hero__inner">
-        <p class="post-date"><%= postdate %></p>
-
-        <h1 class="hero__title"><%= posttitle %>></h1>
-
-        <div class="post-meta">
-            <p class="post-meta__location"><%= `${bakery}, ${city}` %></p>
-            <p class="post-meta__tier"><strong><%= tier %></strong>-tier</p>
+        <div class="hero__columns">
+            <div class="hero__column">
+                <p class="post__date"><%= postdate %></p>
+                <h1 class="hero__title"><%= posttitle %></h1>
+                <p class="post__location"><%= `${bakery}, ${city}` %></p>
+            </div>
+            
+            <div class="hero__column">
+                <p class="post__tier"><strong><%= tier %></strong>-tier</p>
+            </div>
         </div>
     </div>
 </div>
