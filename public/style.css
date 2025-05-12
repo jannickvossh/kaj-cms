@@ -339,6 +339,116 @@ nav a {
 
 /*
     ------------------------------
+    | FORMULARER, KNAPPER MM.    |
+    ------------------------------
+*/
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-small);
+    margin: 0 auto;
+}
+
+.form--narrow {
+    max-width: 800px;
+}
+
+.form--super-narrow {
+    max-width: 500px;
+}
+
+.form__field-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__label {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    margin: 0 0 0.5em;
+}
+
+.form__label > a {
+    color: var(--color-highlight);
+    font-size: var(--font-size-small);
+}
+
+.form__input {
+    outline: none;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: var(--spacing-tiny);
+}
+
+.form__input::placeholder {
+    color: color-mix(in srgb, var(--color-dark), transparent 65%);
+}
+
+.form__input--title {
+    background-color: transparent;
+    color: var(--color-light);
+    border-bottom: 2px solid var(--color-light);
+    padding: var(--spacing-tiny) 0;
+    border-radius: 0;
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-bold);
+}
+
+.form__input--title::placeholder {
+    color: color-mix(in srgb, var(--color-light), transparent 80%);
+}
+
+.form__field-group:has(.form__input--title):has(+ .form__field-group) {
+    margin-bottom: var(--spacing-small);
+}
+
+.form__textarea {
+    outline: none;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: var(--spacing-tiny);
+}
+
+.form__textarea::placeholder {
+    color: color-mix(in srgb, var(--color-dark), transparent 65%);
+}
+
+.form__submit {
+    align-self: flex-start;
+}
+
+button,
+.button {
+    border: none;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-tiny) var(--spacing-small);
+    font-weight: var(--font-weight-bold);
+    transition: background-color var(--transition-standard);
+    cursor: pointer;
+}
+
+.button--cta {
+    background-color: var(--color-highlight);
+}
+
+button:hover,
+.button:hover {
+    background-color: color-mix(in srgb, var(--color-light), var(--color-dark) 15%);
+}
+
+.button--cta:hover {
+    background-color: color-mix(in srgb, var(--color-highlight), var(--color-dark) 15%);
+}
+
+/*
+    ------------------------------
     | HEADER                     |
     ------------------------------
 */
@@ -569,7 +679,6 @@ nav a {
     padding: var(--spacing-tiny) var(--spacing-small);
     border-radius: var(--border-radius);
     font-size: var(--font-size-small);
-    transition: background-color var(--transition-standard);
     cursor: pointer;
 }
 
@@ -653,7 +762,6 @@ nav a {
     border: none;
     cursor: pointer;
     border-radius: 50%;
-    transition: background-color var(--transition-standard);
     position: relative;
     height: 38px;
     width: 38px;

@@ -1,25 +1,47 @@
 <%- include("partials/header.ejs") %>
 
-<form action="sign-up" method="POST">
-    <legend class="form__legend">Opret bruger</legend>
-    
-    <div class="form__field-group">
-        <label class="form__label" for="username">Brugernavn *</label>
-        <input class="form__input" type="text" name="username" required>
-    </div>
+<main class="content">
+    <div class="content__inner">
+        <form class="form form--super-narrow" action="sign-up" method="POST">
+            <h1>Opret bruger</h1>
 
-    <div class="form__field-group">
-        <label class="form__label" for="fullname">Fulde navn *</label>
-        <input class="form__input" type="text" name="fullname" required>
-    </div>
+            <div class="form__field-group">
+                <label class="form__label" for="username">Brugernavn *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="username" 
+                    placeholder="johndoe" 
+                    required 
+                    autofocus
+                >
+            </div>
 
-    <div class="form__field-group">
-        <label class="form__label" for="password">Adgangskode *</label>
-        <input class="form__input" type="password" name="password" required>
-    </div>
+            <div class="form__field-group">
+                <label class="form__label" for="fullname">Fulde navn *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="fullname" 
+                    placeholder="John Doe" 
+                    required
+                >
+            </div>
 
-    <button class="form__submit" type="submit">Opret</button>
-</form>
+            <div class="form__field-group">
+                <label class="form__label" for="password">Adgangskode *</label>
+                <input 
+                    class="form__input" 
+                    type="password" 
+                    name="password" 
+                    required
+                >
+            </div>
+
+            <button class="button button--cta form__submit" type="submit">Opret</button>
+        </form>
+    </div>
+</main>
 
 <% if (locals.loggedIn) { %>
     <%- include("partials/admin-bar.ejs") %>

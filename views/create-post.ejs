@@ -1,52 +1,102 @@
 <%- include("partials/header.ejs") %>
 
-<form class="form" action="/create-post" method="POST" enctype="multipart/form-data">
-    <legend class="form__legend">Nyt indlæg</legend>
+<main class="content">
+    <div class="content__inner">
+        <form class="form form--narrow" action="/create-post" method="POST" enctype="multipart/form-data">
+            <h1>Opret indlæg</h1>
 
-    <div class="form__field-group">
-        <label class="form__label" for="posttitle">Titel *</label>
-        <input class="form__input" type="text" name="posttitle" required>
+            <div class="form__field-group">
+                <label class="form__label" for="posttitle">Titel *</label>
+                <input 
+                    class="form__input form__input--title" 
+                    type="text" 
+                    name="posttitle" 
+                    placeholder="Giv dit indlæg en fangende titel" 
+                    required 
+                    autofocus
+                >
+            </div>
+
+            <!-- <div class="form__field-group">
+                <label class="form__label" for="postimage">Billede *</label>
+                <input 
+                    class="form__input" 
+                    type="file" 
+                    name="postimage" 
+                    required
+                >
+            </div> -->
+
+            <div class="form__field-group">
+                <label class="form__label" for="bakery">Bageri/Konditori *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="bakery" 
+                    placeholder="Johns Konditori" 
+                    required
+                >
+            </div>
+
+            <div class="form__field-group">
+                <label class="form__label" for="city">By *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="city" 
+                    placeholder="Bynavn" 
+                    required
+                >
+            </div>
+
+            <div class="form__field-group">
+                <label class="form__label" for="zipcode">Postnummer *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="zipcode" 
+                    placeholder="1234" 
+                    required
+                >
+            </div>
+
+            <div class="form__field-group">
+                <label class="form__label" for="tier">Tier (S, A, B, C, D, E eller F) *</label>
+                <input 
+                    class="form__input" 
+                    type="text" 
+                    name="tier" 
+                    placeholder="A" 
+                    required
+                >
+            </div>
+
+            <div class="form__field-group">
+                <label class="form__label" for="postexcerpt">Uddrag *</label>
+                <textarea 
+                    class="form__textarea" 
+                    name="postexcerpt" 
+                    placeholder="Skriv et kort uddrag, som opsummerer indlægget." 
+                    rows="3" 
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form__field-group">
+                <label class="form__label" for="postcontent">Indhold (skrives i <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">markdown</a>) *</label>
+                <textarea 
+                    class="form__textarea" 
+                    name="postcontent" 
+                    rows="15" 
+                    placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum tortor tempor tortor egestas mattis." 
+                    required
+                ></textarea>
+            </div>
+
+            <button class="button button--cta form__submit" type="submit">Opret indlæg</button>
+        </form>
     </div>
-
-    <!-- <div class="form__field-group">
-        <label class="form__label" for="postimage">Billede *</label>
-        <input class="form__input" type="file" name="postimage" required>
-    </div> -->
-
-    <fieldset>
-        <div class="form__field-group">
-            <label class="form__label" for="bakery">Bageri/Konditori *</label>
-            <input class="form__input" type="text" name="bakery" required>
-        </div>
-
-        <div class="form__field-group">
-            <label class="form__label" for="city">By *</label>
-            <input class="form__input" type="text" name="city" required>
-        </div>
-
-        <div class="form__field-group">
-            <label class="form__label" for="zipcode">Postnummer *</label>
-            <input class="form__input" type="text" name="zipcode" required>
-        </div>
-    </fieldset>
-
-    <div class="form__field-group">
-        <label class="form__label" for="tier">Tier *</label>
-        <input class="form__input" type="text" name="tier" required>
-    </div>
-
-    <div class="form__field-group">
-        <label class="form__label" for="postexcerpt">Uddrag *</label>
-        <textarea name="postexcerpt" id="postexcerpt" required></textarea>
-    </div>
-
-    <div class="form__field-group">
-        <label class="form__label" for="postcontent">Indhold - skrives i markdown *</label>
-        <textarea name="postcontent" id="postcontent" required></textarea>
-    </div>
-
-    <button class="form__submit" type="submit">Opret indlæg</button>
-</form>
+</main>
 
 <% if (locals.loggedIn) { %>
     <%- include("partials/admin-bar.ejs") %>
