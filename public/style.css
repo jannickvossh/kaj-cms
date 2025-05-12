@@ -455,7 +455,7 @@ nav a {
     background-color: var(--color-darkgray);
     display: flex;
     align-items: center;
-    gap: var(--spacing-small);
+    gap: var(--spacing-medium);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
@@ -468,7 +468,7 @@ nav a {
 .admin-bar__nav-list {
     display: flex;
     align-items: center;
-    gap: var(--spacing-small);
+    gap: var(--spacing-tiny);
 }
 
 .admin-bar__nav-link {
@@ -486,14 +486,23 @@ nav a {
 .admin-bar__logout {
     background-color: var(--color-red);
     border: none;
-    font-size: var(--font-size-small);
-    color: var(--color-light);
-    padding: var(--spacing-tiny) var(--spacing-tiny);
     cursor: pointer;
-    border-radius: var(--border-radius);
+    border-radius: 50%;
     transition: background-color var(--transition-standard);
+    position: relative;
+    height: 38px;
+    width: 38px;
 }
 
 .admin-bar__logout:hover {
     background-color: color-mix(in srgb, var(--color-red), var(--color-dark) 15%);
+}
+
+.admin-bar__logout-icon {
+    height: 18px;
+    fill: var(--color-light);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 1px), -50%);
 }
