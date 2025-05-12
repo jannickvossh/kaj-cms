@@ -52,6 +52,7 @@
 
     /* Andre variabler */
     --border-radius: 8px;
+    --transition-standard: 200ms ease-in-out;
 }
 
 @media screen and (min-width: 768px) {
@@ -415,6 +416,7 @@ nav a {
     display: flex;
     align-items: center;
     gap: var(--spacing-small);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .admin-bar__current-user {
@@ -434,10 +436,15 @@ nav a {
     display: block;
     white-space: nowrap;
     text-decoration: dotted underline;
+    color: color-mix(in srgb, var(--color-light), transparent 35%);
+    transition: color var(--transition-standard);
+}
+
+.admin-bar__nav-link:hover {
+    color: var(--color-light);
 }
 
 .admin-bar__logout {
-    appearance: none;
     background-color: var(--color-red);
     border: none;
     font-size: var(--font-size-small);
@@ -445,4 +452,9 @@ nav a {
     padding: var(--spacing-tiny) var(--spacing-tiny);
     cursor: pointer;
     border-radius: var(--border-radius);
+    transition: background-color var(--transition-standard);
+}
+
+.admin-bar__logout:hover {
+    background-color: color-mix(in srgb, var(--color-red), var(--color-dark) 15%);
 }
