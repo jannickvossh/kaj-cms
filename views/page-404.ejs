@@ -1,16 +1,20 @@
 <%- include("partials/header.ejs") %>
 
-<h1>404 – Side ikke fundet</h1>
+<main class="content">
+    <div class="content__inner">
+        <h1>404 – Side ikke fundet</h1>
 
-<p>Jeg beklager. Siden, du ledte efter, blev ikke fundet. Det kan skyldes følgende:</p>
+        <p>Jeg beklager. Siden, du ledte efter, blev ikke fundet. Det kan skyldes følgende:</p>
 
-<ul>
-    <li>Siden er blevet fjernet.</li>
-    <li>Siden er blevet flyttet.</li>
-    <li>Du tastede en forkert adresse i adressefeltet.</li>
-</ul>
+        <ul>
+            <li>Siden er blevet fjernet.</li>
+            <li>Siden er blevet flyttet.</li>
+            <li>Du tastede en forkert adresse i adressefeltet.</li>
+        </ul>
 
-<a href="/">Tilbage til forsiden</a>
+        <a href="/">Tilbage til forsiden</a>
+    </div>
+</main>
 
 <% if (locals.loggedIn) { %>
     <%- include("partials/admin-bar.ejs") %>
